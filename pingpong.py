@@ -19,7 +19,10 @@ class player1():
 		self.speed = 3
 		self.score = 0
 
-	def scoring(self):
+	def scoring(self, gameDisplay):
+		myfont = pygame.font.SysFont("Comic Sans MS", 20)
+		label = myfont.render("Score "+str(self.score), 1, white)
+		gameDisplay.blit(label, (50,20))
 		if self.score == 10:
 			print("Player 1 Wins!")
 			exit()
@@ -46,7 +49,10 @@ class player2():
 		self.speed = 3
 		self.score = 0
 
-	def scoring(self):
+	def scoring(self, gameDisplay):
+		myfont = pygame.font.SysFont("Comic Sans MS", 20)
+		label = myfont.render("Score "+str(self.score), 1, white)
+		gameDisplay.blit(label, (470, 20))
 		if self.score == 10:
 			print("Player 2 Wins!")
 			exit()
@@ -114,27 +120,44 @@ p1 = player1()
 p2 = player2()
 ball = Ball()
 
-while True:
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			print ("Game Exited by User!")
-			pygame.quit()
-			quit()
 
+if __name__ == "__main__":
+	while True:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				print ("Game Exited by User!")
+				pygame.quit()
+				quit()
+
+		p1.movement()
+		p2.movement()
+		ball.movement()
+
+
+		gameDisplay.fill((black))
+
+		p1.draw()
+		p2.draw()
+		ball.draw()
+		p1.scoring(gameDisplay)
+		p2.scoring(gameDisplay)
+
+		pygame.display.flip()
+		clock.tick(60)
+
+def func():
 	p1.movement()
 	p2.movement()
 	ball.movement()
-
 
 	gameDisplay.fill((black))
 
 	p1.draw()
 	p2.draw()
 	ball.draw()
-	p1.scoring()
-	p2.scoring()
+	p1.scoring(gameDisplay)
+	p2.scoring(gameDisplay)
 
 	pygame.display.flip()
 	clock.tick(60)
-
 
